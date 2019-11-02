@@ -1,0 +1,25 @@
+{
+  "name": "que_veo_hoy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fernandezluciano/Que_veo_hoy.git"
+  },
+  "author": "Luciano Fernandez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fernandezluciano/Que_veo_hoy/issues"
+  },
+  "homepage": "https://github.com/fernandezluciano/Que_veo_hoy#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mysql": "^2.17.1"
+  }
+}
