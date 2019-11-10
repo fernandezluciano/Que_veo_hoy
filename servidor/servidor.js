@@ -13,6 +13,7 @@ app.use(bodyParser.json());
 
 //Pedidos para cada ruta
 app.get('/peliculas', controlador.buscarTodasLasPeliculas);
+app.get('/generos', controlador.buscarGeneros);
 
 
 //Seteamos el puerto en el cual la aplicación va a escuchar los pedidos

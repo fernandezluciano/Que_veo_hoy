@@ -15,3 +15,8 @@ CREATE TABLE pelicula(
     PRIMARY KEY(id)
 );
 
+CREATE TABLE genero(
+    id INT NOT NULL AUTO_INCREMENT,
+    nombre VARCHAR(30),
+    PRIMARY KEY (id)
+);
