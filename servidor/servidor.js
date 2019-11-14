@@ -1,4 +1,4 @@
-//Paquetes necesarios para el proyecto
+// Paquetes necesarios para el proyecto. //
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -11,13 +11,13 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
-//Pedidos para cada ruta
-app.get('/peliculas', controlador.buscarTodasLasPeliculas);
-app.get('/generos', controlador.buscarGeneros);
+// Pedidos para cada ruta. //
+app.get('/peliculas', controlador.obtenerPeliculas);
+app.get('/generos', controlador.obtenerGeneros);
 
 
-//Seteamos el puerto en el cual la aplicación va a escuchar los pedidos
-var puerto = '8080';
+// Seteamos el puerto en el cual la aplicación va a escuchar los pedidos. //
+const puerto = '8080';
 
 app.listen(puerto, () => {
   console.log("Escuchando pedidos en el puerto " + puerto);
