@@ -102,7 +102,7 @@ function ControladorPeliculas() {
                     pelicula.attr("id", peliculas[i].id);
                     //cuando se haga click en una película, se va a redirigir la aplicación a la página info.html  
                     pelicula.click(function() {
-                        window.location.href = "info.html?id=" + this.id;
+                        window.location.href = "cliente/html/info.html?id=" + this.id;
                     });
                     //se agrega la pelicula que al contenedor de peliculas
                     pelicula.appendTo($(".contenedor-peliculas"));

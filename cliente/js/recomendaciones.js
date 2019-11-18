@@ -62,7 +62,7 @@ function ControladorRecomendaciones() {
         //Este funcion redirige al usuario a la pagina que muestra mas informacion de la pelicula segun su id
         $(".botones-resultado .ver-mas").click(function() {
             var id = (self.pelicula_actual).id;
-            window.location.href = "info.html?id=" + id;
+            window.location.href = "cliente/html/info.html?id=" + id;
             console.log(id);
         });
 

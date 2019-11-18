@@ -47,11 +47,11 @@ const obtenerPeliculas = (req, res) => {
     // Se limita la cantidad de resultados por página. //
     sql += ` LIMIT ${limite}`;
 
-    // Se realiza la consulta //
+    // Se realiza la consulta. //
     con.query(sql, (error, resultado, fields) => {
         if(error){
-            console.log("Hubo un error y no se encontraron las películas.", error.message);
-            return res.status(404).send("Hubo un error y no se encontraron las películas.");
+            console.log("Hubo un error en la consulta.", error.message);
+            return res.status(404).send("Hubo un error en la consulta.");
         };
 
         let response = {
@@ -62,8 +62,8 @@ const obtenerPeliculas = (req, res) => {
         // Se realiza la consulta para obtener total de resultados enviados. //
         con.query(sqlTotal, (errorTotal, resultadoTotal, fieldsTotal) => {
             if (errorTotal){
-                    console.log("Hubo un error en la consulta", errorTotal.message);
-                    return res.status(404).send("Hubo un error en la consulta");
+                    console.log("Hubo un error en la consulta.", errorTotal.message);
+                    return res.status(404).send("Hubo un error en la consulta.");
                  };
 
                  response.total = resultadoTotal[0].total;
@@ -77,8 +77,8 @@ const obtenerGeneros = (req, res) => {
     let sql = "SELECT * FROM genero";
     con.query(sql, (error, resultado, fields) => {
         if(error){
-            console.log("Hubo un error y no se encontraron los géneros.", error.message);
-            return res.status(404).send("Hubo un error y no se encontraron los géneros.");
+            console.log("Hubo un error en la consulta", error.message);
+            return res.status(404).send("Hubo un error en la consulta.");
         };
 
         let response = {
@@ -87,9 +87,46 @@ const obtenerGeneros = (req, res) => {
 
         res.send(JSON.stringify(response));
     })
-}
+};
+
+//Se realiza la consulta para obtener una película según el id pasado como parámetro. //
+const obtenerPorId = (req, res) => {
+    let id = req.params.id;
+    let sqlPelicula = `SELECT * FROM pelicula INNER JOIN genero ON pelicula.genero_id=genero.id WHERE pelicula.id = ${id}`; // Query para obtener datos de peliícula y el género. //
+
+        con.query(sqlPelicula, (error, resultado, fields) => {
+            if (error) {
+                console.log("Hubo un error en la consulta.", error.message);
+                return res.status(404).send("Hubo un error en la consulta.");
+            }
+
+            if (resultado.length == 0) {
+                console.log("No se encontró ninguna película con ese id.")
+                return res.status(404).send("No se encontró ninguna película con ese id.");
+            }
+                let response = {
+                    pelicula: resultado[0],
+                    genero: resultado[0].nombre,
+                    actores: ""
+                };
+
+
+    let sqlActores = `SELECT actor.nombre FROM pelicula INNER JOIN actor_pelicula ON pelicula.id=actor_pelicula.pelicula_id INNER JOIN actor ON actor.id=actor_pelicula.actor_id WHERE pelicula.id = ${id}`; // Query para obtener los actores de la película correspondiente. //
+
+        con.query(sqlActores, (error, resultadoActores, fields) => {
+            if (error) {
+                console.log("Hubo un error en la consulta.", error.message);
+                return res.status(404).send("Hubo un error en la consulta.");
+            };
+
+                response.actores = resultadoActores;
+                res.send(JSON.stringify(response));
+        });
+    })   
+};
 
 module.exports = {
     obtenerPeliculas: obtenerPeliculas,
-    obtenerGeneros: obtenerGeneros
+    obtenerGeneros: obtenerGeneros,
+    obtenerPorId: obtenerPorId
 }
